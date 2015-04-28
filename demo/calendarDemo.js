@@ -1,9 +1,9 @@
 /**
  * calendarDemoApp - 0.9.0
  */
-angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap']);
+//angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap']);
 
-function CalendarCtrl($scope,$compile,uiCalendarConfig) {
+function calendarCtrl($scope,$compile,uiCalendarConfig) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
