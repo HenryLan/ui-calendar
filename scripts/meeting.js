@@ -1,7 +1,7 @@
 ﻿(function () {
     var app = angular.module('demoApp');
    
-    var calendarCtrl = function ($scope, $compile, uiCalendarConfig) {
+    var calendarCtrl = function ($scope, $compile, $location, $anchorScroll, uiCalendarConfig) {
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -16,35 +16,33 @@
         };
         /* event source that contains custom events on the scope */
         $scope.events = [
-          { title: 'All Day Event 001', start: new Date(y, m, 1) },
-          { title: 'Long Event', start: new Date(y, m, d - 5), end: new Date(y, m, d - 2) },
-          { id: 998, title: 'Repeating Event', start: new Date(y, m, d - 3, 16, 0), allDay: false },
-          { id: 992, title: 'Repeating Event', start: new Date(y, m, d + 4, 16, 0), allDay: false },
-          { id: 15, title: 'Birthday Party', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false },
-          { title: 'Click for Google', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false, url: 'http://google.com/' }
+          { id: 10, title: 'Performance Review', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
+          { id: 15, title: 'Birthday Party', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false },
+          { title: 'Meeting with Lawyer', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false}
         ];
         /* event source that calls a function on every view switch */
-        $scope.eventsF = function (start, end, timezone, callback) {
-            var s = new Date(start).getTime() / 1000;
-            var e = new Date(end).getTime() / 1000;
-            var m = new Date(start).getMonth();
-            var events = [{ title: 'Feed Me ' + m, start: s + (50000), end: s + (100000), allDay: false, className: ['customFeed'] }];
-            callback(events);
-        };
+        //$scope.eventsF = function (start, end, timezone, callback) {
+        //    var s = new Date(start).getTime() / 1000;
+        //    var e = new Date(end).getTime() / 1000;
+        //    var m = new Date(start).getMonth();
+        //    var events = [{ title: 'Feed Me ' + m, start: s + (50000), end: s + (100000), allDay: false, className: ['customFeed'] }];
+        //    callback(events);
+        //};
 
         $scope.calEventsExt = {
             color: '#f00',
             textColor: 'yellow',
             events: [
                { type: 'party', title: 'Lunch', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
-               { type: 'party', title: 'Lunch 2', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
-               { type: 'party', title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/' }
             ]
         };
         /* alert on eventClick */
         $scope.alertOnEventClick = function (date, jsEvent, view) {
-            //$scope.alertMessage = (date.title + ' was clicked ');
+            //$scope.alertMessage = (date.title + ' was clicked ');            
+
             getAgenda();
+
+
         };
         /* alert on Drop */
         $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
@@ -152,6 +150,9 @@
             var agenda4= { title: "Complete meeting", order: 4, docs: [] };
 
             $scope.agenda.push(agenda1, agenda2, agenda3, agenda4);
+
+            $location.hash('agenda');
+            $anchorScroll();
         };
 
         function clearAgenda() {
@@ -159,5 +160,5 @@
         };
     };
 
-    app.controller("calendarCtrl", ["$scope", "$compile", "uiCalendarConfig", calendarCtrl]);
+    app.controller("calendarCtrl", ["$scope", "$compile", "$location", "$anchorScroll", "uiCalendarConfig", calendarCtrl]);
 }());
