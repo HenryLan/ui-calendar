@@ -43,7 +43,8 @@
         };
         /* alert on eventClick */
         $scope.alertOnEventClick = function (date, jsEvent, view) {
-            $scope.alertMessage = (date.title + ' was clicked ');
+            //$scope.alertMessage = (date.title + ' was clicked ');
+            getAgenda();
         };
         /* alert on Drop */
         $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
@@ -126,18 +127,35 @@
             }
         };
         /* event sources array*/
-        $scope.eventSources = [$scope.events];
-        $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+        $scope.eventSources = [$scope.events, $scope.calEventsExt];
+        //$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
+
+        $scope.agenda = [];
 
         activate();
 
         function activate() {
             getMeetingInfo();
+
         };
 
         function getMeetingInfo() {
             //alert('ok');
+        };
+
+        function getAgenda() {
+            clearAgenda();
+            var agenda1 = { title: "Review Agenda", order: 1, docs: [] };
+            var agenda2 = { title: "Review purpose of team", order: 2, docs: [{title:"Member List", source:"/docs/MemberList.txt"}] };
+            var agenda3 = { title: "Identify challenges", order: 3, docs: [{ title: "Market Uncertainty", source: "/docs/Market.txt" }, { title: "New Trend", source: "/docs/Trend.txt" }] };
+            var agenda4= { title: "Complete meeting", order: 4, docs: [] };
+
+            $scope.agenda.push(agenda1, agenda2, agenda3, agenda4);
+        };
+
+        function clearAgenda() {
+            $scope.agenda = [];
         };
     };
 
