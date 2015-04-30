@@ -13,7 +13,7 @@
          $scope.login = function () {
              if ($scope.username == "MPF" && $scope.password == "MPF") {
                  $scope.error = "";
-                 $location.path("/about");
+                 $location.path("/meeting");
              }
              else {
                  $scope.error = "Invalid username/password";

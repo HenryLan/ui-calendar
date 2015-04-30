@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.css" />
     <link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.css">
     <link rel="stylesheet" href="calendarDemo.css" />
+    <link rel="stylesheet" href="../content/site.css" />
 
     <script src="../bower_components/jquery/dist/jquery.js"></script>
 
@@ -26,20 +27,23 @@
 
 </head>
 <body ng-app="demoApp">
-    <header>
-        <h1>Board Of Directors</h1>
-    </header>
+    <div class="container">       
+        <div id="banner"></div>
+        <div>
+            <h2>Board of Directors</h2>
+        </div>
 
-    <div class="container" style="width:90%; min-width:300px;">
-        <h2>Body</h2>
+        <!--<div style="width:90%; min-width:300px;">
 
-        <a ui-sref="home">home</a>
-        <a ui-sref="login">login</a>
-        <a ui-sref="about">about</a>
+            <a ui-sref="home">home</a>
+            <a ui-sref="login">login</a>
+            <a ui-sref="about">about</a>
+        </div>-->
+
+        <div style="width:90%; min-width:300px;">
+            <div ui-view></div>
+        </div>
     </div>
 
-    <div class="container">
-        <div ui-view></div>
-    </div>
 </body>
 </html>
