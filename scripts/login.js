@@ -5,7 +5,7 @@
 
     var loginCtrl = function ($scope, $location) {
 
-        $scope.message = "Please user MPF/MPF as username/password";
+        $scope.message = "Please use MPF/MPF as username/password";
         $scope.username = "";
         $scope.password = "";
         $scope.error = "";        

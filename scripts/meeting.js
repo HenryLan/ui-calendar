@@ -146,11 +146,11 @@
             clearAgenda();
 
             if (meetingId == 10){
-                var agenda1 = { title: "Agenda Overview", order: 1, docs: [] };
-                var agenda2 = { title: "Finanical Statements", order: 2, docs: [{ title: "Pension Plan 2015", source: "/docs/PensionPlan2011.PDF" }] };
-                var agenda3 = { title: "Review Membership", order: 3, docs: [{ title: "MPF AR 2015", source: "/docs/MPF_AR_2013-AODA.PDF" }, { title: "inconcer July 2015", source: "/docs/inconcert-July2014-AODA.PDF" }] };
-                var agenda4 = { title: "Review Contributions", order: 4, docs: [{ title: "Contributions Performance", source: "/docs/PensionPlan2011.PDF" }] };
-                var agenda5 = { title: "Close Meeting", order: 5, docs: [] };
+                var agenda1 = { title: "Agenda Overview", order: 1};
+                var agenda2 = { title: "Finanical Statements", order: 2, doc: { title: "Pension Plan 2015", source: "/docs/PensionPlan2011.PDF" } };
+                var agenda3 = { title: "Review Membership", order: 3, doc: { title: "MPF AR 2015", source: "/docs/MPF_AR_2013-AODA.PDF" } };
+                var agenda4 = { title: "Review Contributions", order: 4, doc: { title: "Contributions Performance", source: "/docs/PensionPlan2011.PDF" } };
+                var agenda5 = { title: "Close Meeting", order: 5 };
 
                 $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
             }

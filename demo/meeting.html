@@ -1,4 +1,8 @@
 ﻿<div class="container" style="width:90%; min-width:300px;" ng-controller="calendarCtrl">
+    <div>
+        <h2>MPF Meeting Calendar</h2>
+    </div>
+
     <section id="directives-calendar">
 
         <div class="well">
@@ -6,26 +10,23 @@
 
 
                 <div class="span12">
-                    <tabset>
-                        <tab select="renderCalender('myCalendar1');">
-                            <tab-heading>
-                                <i class="glyphicon glyphicon-bell"></i> Meeting
-                            </tab-heading>
-                            <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-                                <h4>{{alertMessage}}</h4>
-                            </div>
-                            <div class="btn-toolbar">
-                                <p class="pull-right lead">Meeting Calendar</p>
-                                <div class="btn-group">
-                                    <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
-                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
-                                    <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
-                                </div>
-                            </div>
-                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
-                        </tab>
 
-                    </tabset>
+                    <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+                        <h4>{{alertMessage}}</h4>
+                    </div>
+                    <div class="btn-toolbar" style="text-align:right;">
+                        <!--<p class="pull-right lead">Meeting Calendar</p>-->
+                        <div class="btn-group">
+                            <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+                            <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+                            <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
+                        </div>
+                    </div>
+                    <div>
+                        &nbsp;
+                    </div>
+                    <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
+
                 </div>
             </div>
         </div>
@@ -34,15 +35,24 @@
 
     <section id="agenda" class="well agendaSection" ng-show="agenda.length>0">
         <h2>Agenda</h2>
+
         <div ng-repeat="a in agenda">
             <div class="agendaItem">
                 <h5>{{$index+1}}. {{a.title}}</h5>
 
                 <ul ng-repeat="doc in a.docs">
-                    <li><a href="{{doc.source}}" target="_blank">{{doc.title}}</a></li>
+                    <li><a  href="{{doc.source}}" target="_blank">{{doc.title}}</a></li>
                 </ul>
             </div>
         </div>
+        <ul ng-repeat="a in agenda">
+            <li>
+                
+                <span ng-show="a.doc != null"><a href="{{a.doc.source}}" target="_blank"><span class="icon-file"></span>{{a.title}}</a></span>
+                <span ng-show="a.doc == null">{{a.title}}</span>
+            
+            </li>
+        </ul>
     </section>
 
 </div>
