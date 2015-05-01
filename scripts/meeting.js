@@ -16,9 +16,9 @@
         };
         /* event source that contains custom events on the scope */
         $scope.events = [
-          { id: 10, title: 'Performance Review', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
-          { id: 15, title: 'Birthday Party', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false },
-          { title: 'Meeting with Lawyer', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false}
+          { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
+          { id: 15, title: '2015 Q1 Investments Review', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false },
+          { id: 20, title: 'Year End Actuary Review', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false}
         ];
         /* event source that calls a function on every view switch */
         //$scope.eventsF = function (start, end, timezone, callback) {
@@ -33,14 +33,14 @@
             color: '#f00',
             textColor: 'yellow',
             events: [
-               { type: 'party', title: 'Lunch', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
+               { id: 100, type: 'Special', title: 'Special Trustee Meeting', start: new Date(y, m, d+4, 14, 0), end: new Date(y, m, d+4, 16, 0), allDay: false },
             ]
         };
         /* alert on eventClick */
         $scope.alertOnEventClick = function (date, jsEvent, view) {
             //$scope.alertMessage = (date.title + ' was clicked ');            
 
-            getAgenda();
+            getAgenda(date.id);
 
 
         };
@@ -142,14 +142,20 @@
             //alert('ok');
         };
 
-        function getAgenda() {
+        function getAgenda(meetingId) {
             clearAgenda();
-            var agenda1 = { title: "Review Agenda", order: 1, docs: [] };
-            var agenda2 = { title: "Review purpose of team", order: 2, docs: [{title:"Member List", source:"/docs/MemberList.txt"}] };
-            var agenda3 = { title: "Identify challenges", order: 3, docs: [{ title: "Market Uncertainty", source: "/docs/Market.txt" }, { title: "New Trend", source: "/docs/Trend.txt" }] };
-            var agenda4= { title: "Complete meeting", order: 4, docs: [] };
 
-            $scope.agenda.push(agenda1, agenda2, agenda3, agenda4);
+            if (meetingId == 10){
+                var agenda1 = { title: "Agenda Overview", order: 1, docs: [] };
+                var agenda2 = { title: "Finanical Statements", order: 2, docs: [{ title: "Pension Plan 2015", source: "/docs/PensionPlan2011.PDF" }] };
+                var agenda3 = { title: "Review Membership", order: 3, docs: [{ title: "MPF AR 2015", source: "/docs/MPF_AR_2013-AODA.PDF" }, { title: "inconcer July 2015", source: "/docs/inconcert-July2014-AODA.PDF" }] };
+                var agenda4 = { title: "Review Contributions", order: 4, docs: [{ title: "Contributions Performance", source: "/docs/PensionPlan2011.PDF" }] };
+                var agenda5 = { title: "Close Meeting", order: 5, docs: [] };
+
+                $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
+            }
+
+
 
             $location.hash('agenda');
             $anchorScroll();
