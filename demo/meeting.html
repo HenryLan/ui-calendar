@@ -34,7 +34,7 @@
 
     <section id="agenda" class="well agendaSection" ng-show="agenda.length>0">
         <h2>Agenda</h2>
-        <div ng-repeat="a in agenda" >
+        <div ng-repeat="a in agenda">
             <div class="agendaItem">
                 <h5>{{$index+1}}. {{a.title}}</h5>
 
@@ -42,7 +42,7 @@
                     <li><a href="{{doc.source}}" target="_blank">{{doc.title}}</a></li>
                 </ul>
             </div>
-
         </div>
     </section>
+
 </div>
