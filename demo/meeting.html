@@ -34,17 +34,9 @@
     </section>
 
     <section id="agenda" class="well agendaSection" ng-show="agenda.length>0">
-        <h2>Agenda</h2>
+        <h3>Agenda</h3>
 
-        <div ng-repeat="a in agenda">
-            <div class="agendaItem">
-                <h5>{{$index+1}}. {{a.title}}</h5>
 
-                <ul ng-repeat="doc in a.docs">
-                    <li><a  href="{{doc.source}}" target="_blank">{{doc.title}}</a></li>
-                </ul>
-            </div>
-        </div>
         <ul ng-repeat="a in agenda">
             <li>
                 
