@@ -25,6 +25,7 @@
     <!--<script src="calendarDemo.js"></script>-->
     <script src="../scripts/meeting.js"></script>
     <script src="../scripts/layout.js"></script>
+    <script src="../scripts/userService.js"></script>
 
 </head>
 <body ng-app="demoApp">
@@ -41,20 +42,19 @@
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header" >
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" ng-show="user">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" ng-show="user.loggedIn">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">{{name}}</a>
-                    {{user}}
+                    <a class="navbar-brand" href="#">Meeting Portal</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
 
-                    <ul class="nav navbar-nav navbar-right" ng-show="user">
+                    <ul class="nav navbar-nav navbar-right" ng-show="user.loggedIn">
                         <li><a href="#">Link1</a></li>
                         <li><a href="#">Link2</a></li>
                         <li><a href="#">Link3</a></li>

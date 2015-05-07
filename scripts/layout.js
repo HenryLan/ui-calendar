@@ -1,7 +1,7 @@
 ﻿(function () {
     var app = angular.module('demoApp');
 
-    var layoutCtrl = function ($scope) {
+    var layoutCtrl = function ($scope, userSvc) {
         $scope.user = null;
         $scope.name = "Henry";
 
@@ -9,8 +9,9 @@
 
         function activate() {
             console.log("layoutCtrl");
+            $scope.user = userSvc.user;
         };
     };
 
-    app.controller("layoutCtrl", ["$scope",layoutCtrl]);
+    app.controller("layoutCtrl", ["$scope","userSvc", layoutCtrl]);
 }());
