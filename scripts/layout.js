@@ -2,7 +2,7 @@
     var app = angular.module('demoApp');
 
     var layoutCtrl = function ($scope) {
-        $scope.user = {};
+        $scope.user = null;
         $scope.name = "Henry";
 
         activate();
