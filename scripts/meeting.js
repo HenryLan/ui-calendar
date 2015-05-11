@@ -143,9 +143,24 @@
         function getMeetingInfo() {
             dataSvc.getMeetings()
                 .success(function (data, status, headers, config) {
-                    for (var meeting in data) {
+                    var events = [];
 
+                    for (var meeting in data) {
+                        var event = {};
+                        event.id = meeting.id;
+                        event.title = meeting.name;
+                        event.start = new Date(meeting.startDateString);
+                        event.end = new Date(meeting.endDateString);
+                        if(event.start.getDate() == event.end.getDate() &&
+                            event.start.getMonth() == event.end.getMonth() &&
+                            event.start.getFullYear() == event.end.getFullYear()) {
+                            event.allDay = false;
+                        }
+
+                        events.push(event);
                     }
+
+                    $scope.eventSources.push(events);
                 })
                 .error(function (data, status, headers, config) {
                     var events = [];
@@ -153,13 +168,19 @@
                     var event1 = { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false };
                     var event2 = { id: 15, title: '2015 Q1 Investments Review', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false };
                     var event3 = { id: 20, title: 'Year End Actuary Review', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false };
+
+                    var event4 = {};
+                    event4.id = 25;
+                    event4.title = "Long Meeting";
+                    event4.start = new Date(y, m, d + 5);
+                    event4.end = new Date(y, m, d + 8);
                     //$scope.events = [
                     //  { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
                     //  { id: 15, title: '2015 Q1 Investments Review', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false },
                     //  { id: 20, title: 'Year End Actuary Review', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false }
                     //];
 
-                    events.push(event1, event2, event3);
+                    events.push(event1, event2, event3, event4);
                     var calEventsExt = {
                         color: '#f00',
                         textColor: 'yellow',
