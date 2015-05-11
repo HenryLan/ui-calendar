@@ -27,6 +27,7 @@
     <script src="../scripts/dataService.js"></script>
     <script src="../scripts/layout.js"></script>
     <script src="../scripts/userService.js"></script>
+    <script src="../scripts/storageService.js"></script>
 
 </head>
 <body ng-app="demoApp">
@@ -49,7 +50,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Meeting Portal</a>
+                    <span class="navbar-brand">Meeting Portal {{user.userName}}</span>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->

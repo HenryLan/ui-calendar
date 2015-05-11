@@ -16,6 +16,7 @@
 
         function logout() {
             userSvc.logout();
+            $scope.user = userSvc.user;
         };
     };
 

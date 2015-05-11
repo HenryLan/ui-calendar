@@ -11,20 +11,17 @@
         $scope.error = "";        
         
          $scope.login = function () {
-             //if ($scope.username == "MPF" && $scope.password == "MPF") {
-             //    $scope.error = "";
-             //    $location.path("/meeting");
-             //}
-             //else {
-             //    $scope.error = "Invalid username/password";
-             //}
-             if (userSvc.login("MPF", "MPF")) {
-                    $scope.error = "";
-                    $location.path("/meeting");
-             }
-             else {
+             userSvc.login($scope.username, $scope.password)
+             .success(function (data, status, headers, config) {
+                 console.log("success");
+                 userSvc.setUser(data);
+
+                 $scope.error = "";
+                 $location.path("/meeting");
+             })
+             .error(function (data, status, headers, config) {
                  $scope.error = "Invalid username/password";
-             }
+             });
 
         };
 

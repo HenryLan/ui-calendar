@@ -1,11 +1,13 @@
 ﻿(function (module) {
     var dataSvc = function ($http) {
-        return {
-            login: login
+
+
+        var login = function (username, password) {
+            return $http.get("https://api.github.com/users/henrylan");
         };
 
-        var login = function () {
-
+        return {
+            login: login
         };
     };
 
