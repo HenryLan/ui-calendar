@@ -32,7 +32,7 @@
             };
 
             if (removeUser) {
-                console.log(removeUser);
+                console.log('removeUser');
                 storageSvc.removeItem(userKey);
             }
             else {
@@ -58,6 +58,7 @@
             login: login,
             logout: logout,
             setUser: setUser,
+            initUser: initUser,
             user: user
         };
     };
