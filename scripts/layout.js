@@ -11,13 +11,14 @@
 
         function activate() {
             console.log("layoutCtrl");
-            $scope.user = userSvc.initUser();
+            $scope.user = userSvc.user;
         };
 
         function logout() {
             userSvc.logout();
             console.log(userSvc.user);
             $scope.user = userSvc.initUser(true);
+            $scope.user = null;
         };
     };
 

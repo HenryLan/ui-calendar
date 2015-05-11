@@ -13,7 +13,6 @@
          $scope.login = function () {
              userSvc.login($scope.username, $scope.password)
              .success(function (data, status, headers, config) {
-                 console.log("success");
                  userSvc.setUser(data);
 
                  $scope.error = "";

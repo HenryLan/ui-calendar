@@ -1,19 +1,19 @@
 ﻿(function () {
     var app = angular.module('demoApp');
    
-    var calendarCtrl = function ($scope, $compile, $location, $anchorScroll, uiCalendarConfig) {
+    var calendarCtrl = function ($scope, dataSvc, $compile, $location, $anchorScroll, uiCalendarConfig) {
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
 
-        $scope.changeTo = 'Hungarian';
-        /* event source that pulls from google.com */
-        $scope.eventSource = {
-            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            className: 'gcal-event',           // an option!
-            currentTimezone: 'America/Chicago' // an option!
-        };
+        //$scope.changeTo = 'Hungarian';
+        ///* event source that pulls from google.com */
+        //$scope.eventSource = {
+        //    url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+        //    className: 'gcal-event',           // an option!
+        //    currentTimezone: 'America/Chicago' // an option!
+        //};
         /* event source that contains custom events on the scope */
         $scope.events = [
           { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
@@ -113,20 +113,20 @@
             }
         };
 
-        $scope.changeLang = function () {
-            if ($scope.changeTo === 'Hungarian') {
-                $scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-                $scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-                $scope.changeTo = 'English';
-            } else {
-                $scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                $scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-                $scope.changeTo = 'Hungarian';
-            }
-        };
+        //$scope.changeLang = function () {
+        //    if ($scope.changeTo === 'Hungarian') {
+        //        $scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
+        //        $scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
+        //        $scope.changeTo = 'English';
+        //    } else {
+        //        $scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        //        $scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        //        $scope.changeTo = 'Hungarian';
+        //    }
+        //};
         /* event sources array*/
-        $scope.eventSources = [$scope.events, $scope.calEventsExt];
-        //$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+        //$scope.eventSources = [$scope.events, $scope.calEventsExt];
+
 
 
         $scope.agenda = [];
@@ -136,10 +136,43 @@
         function activate() {
             getMeetingInfo();
 
+            $scope.eventSources = [];
+
         };
 
         function getMeetingInfo() {
-            //alert('ok');
+            dataSvc.getMeetings()
+                .success(function (data, status, headers, config) {
+                    for (var meeting in data) {
+
+                    }
+                })
+                .error(function (data, status, headers, config) {
+                    var events = [];
+
+                    var event1 = { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false };
+                    var event2 = { id: 15, title: '2015 Q1 Investments Review', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false };
+                    var event3 = { id: 20, title: 'Year End Actuary Review', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false };
+                    //$scope.events = [
+                    //  { id: 10, title: '2015 Q1 Trustee Meeting', start: new Date(y, m, 1, 10, 0), start: new Date(y, m, 1, 11, 0), allDay: false },
+                    //  { id: 15, title: '2015 Q1 Investments Review', start: new Date(y, m, d + 1, 14, 0), end: new Date(y, m, d + 1, 17, 30), allDay: false },
+                    //  { id: 20, title: 'Year End Actuary Review', start: new Date(y, m, 28, 9, 0), end: new Date(y, m, 28, 10, 0), allday: false }
+                    //];
+
+                    events.push(event1, event2, event3);
+                    var calEventsExt = {
+                        color: '#f00',
+                        textColor: 'yellow',
+                        events: [
+                           { id: 100, type: 'Special', title: 'Special Trustee Meeting', start: new Date(y, m, d + 4, 14, 0), end: new Date(y, m, d + 4, 16, 0), allDay: false },
+                        ]
+                    };
+
+                    $scope.eventSources.push(events);
+                    $scope.eventSources.push(calEventsExt);
+
+                    alert("Cannot retrieve meeting information. Will use default meeting data for demo purpose.");
+                });
         };
 
         function getAgenda(meetingId) {
@@ -191,5 +224,5 @@
         };
     };
 
-    app.controller("calendarCtrl", ["$scope", "$compile", "$location", "$anchorScroll", "uiCalendarConfig", calendarCtrl]);
+    app.controller("calendarCtrl", ["$scope", "dataSvc", "$compile", "$location", "$anchorScroll", "uiCalendarConfig", calendarCtrl]);
 }());
