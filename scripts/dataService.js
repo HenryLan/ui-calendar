@@ -17,6 +17,12 @@
             return $http.get(encodeURI(uri));
         };
 
+        var getAgenda = function (meetingId) {
+            var uri = "http://10.10.10.8:7502/meetings-portal/api/v1/agenda/" + meedtingId;
+
+            return $http.get(encodeURI(uri));
+        };
+
         return {
             login: login,
             getMeetings: getMeetings

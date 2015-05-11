@@ -145,7 +145,8 @@
                 .success(function (data, status, headers, config) {
                     var events = [];
 
-                    for (var meeting in data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var meeting = data[i];
                         var event = {};
                         event.id = meeting.id;
                         event.title = meeting.name;
@@ -197,52 +198,67 @@
         };
 
         function getAgenda(meetingId) {
-            clearAgenda();
+            $scope.agenda = [];
 
-            if (meetingId == 10){
-                var agenda1 = { title: "Agenda Overview", order: 1};
-                var agenda2 = { title: "Finanical Statements", order: 2, doc: { title: "Pension Plan 2015", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda3 = { title: "Review Membership", order: 3, doc: { title: "MPF AR 2015", source: "/docs/MPF_AR_2013-AODA.PDF" } };
-                var agenda4 = { title: "Review Contributions", order: 4, doc: { title: "Contributions Performance", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda5 = { title: "Close Meeting", order: 5 };
+            dataSvc.getMeetings(meetingId)
+                .success(function (data, status, headers, config) {
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
 
-                $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
-            }
-            else if (meetingId == 100) {
-                var agenda1 = { title: "Agenda Overview", order: 1};
-                var agenda2 = { title: "Unfunded Liability Review", order: 2, doc: { title: "Pension Plan 2015 Liability Review", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda3 = { title: "Close Meeting", order: 3 };
+                        var agenda = {};
+                        agenda.title = item.name;
+                        agenda.order = i;
+                        agenda.url = item.url;
 
-                $scope.agenda.push(agenda1, agenda2, agenda3);
-            }
-            else if (meetingId == 15) {
-                var agenda1 = { title: "Agenda Overview", order: 1 };
-                var agenda2 = { title: "2014 Results", order: 2, doc: { title: "Pension Plan 2014", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda3 = { title: "2015 Forecast", order: 3, doc: { title: "Pension Plan 2015 Forcast", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda4 = { title: "Additions/Reductions Review", order: 4 };
-                var agenda5 = { title: "Close Meeting", order: 5 };
+                        $scope.agenda.push(agenda);
+                    }
+                })
+                 .error(function (data, status, headers, config) {
+                     alert('Cannor retrieve agenda information, show sample data for demo puopose only');
 
-                $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
-            }
-            else if (meetingId == 20) {
-                var agenda1 = { title: "Agenda Overview", order: 1 };
-                var agenda2 = { title: "Review Actuary Extract", order: 2, doc: { title: "Actuary Report", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda3 = { title: "Address List of Questions", order: 3, doc: { title: "Questions", source: "/docs/PensionPlan2011.PDF" } };
-                var agenda4 = { title: "Close Meeting", order: 4 };
+                     if (meetingId == 10) {
+                         var agenda1 = { title: "Agenda Overview", order: 1 };
+                         var agenda2 = { title: "Finanical Statements", order: 2, doc: { title: "Pension Plan 2015", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda3 = { title: "Review Membership", order: 3, doc: { title: "MPF AR 2015", source: "/docs/MPF_AR_2013-AODA.PDF" } };
+                         var agenda4 = { title: "Review Contributions", order: 4, doc: { title: "Contributions Performance", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda5 = { title: "Close Meeting", order: 5 };
 
-                $scope.agenda.push(agenda1, agenda2, agenda3, agenda4);
-            }
+                         $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
+                     }
+                     else if (meetingId == 100) {
+                         var agenda1 = { title: "Agenda Overview", order: 1 };
+                         var agenda2 = { title: "Unfunded Liability Review", order: 2, doc: { title: "Pension Plan 2015 Liability Review", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda3 = { title: "Close Meeting", order: 3 };
+
+                         $scope.agenda.push(agenda1, agenda2, agenda3);
+                     }
+                     else if (meetingId == 15) {
+                         var agenda1 = { title: "Agenda Overview", order: 1 };
+                         var agenda2 = { title: "2014 Results", order: 2, doc: { title: "Pension Plan 2014", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda3 = { title: "2015 Forecast", order: 3, doc: { title: "Pension Plan 2015 Forcast", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda4 = { title: "Additions/Reductions Review", order: 4 };
+                         var agenda5 = { title: "Close Meeting", order: 5 };
+
+                         $scope.agenda.push(agenda1, agenda2, agenda3, agenda4, agenda5);
+                     }
+                     else if (meetingId == 20) {
+                         var agenda1 = { title: "Agenda Overview", order: 1 };
+                         var agenda2 = { title: "Review Actuary Extract", order: 2, doc: { title: "Actuary Report", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda3 = { title: "Address List of Questions", order: 3, doc: { title: "Questions", source: "/docs/PensionPlan2011.PDF" } };
+                         var agenda4 = { title: "Close Meeting", order: 4 };
+
+                         $scope.agenda.push(agenda1, agenda2, agenda3, agenda4);
+                     }
+                 });
 
             setTimeout(function () {
                 $location.hash('agenda');
                 $anchorScroll();
-            }, 200)
+            }, 200);
 
         };
 
-        function clearAgenda() {
-            $scope.agenda = [];
-        };
+
     };
 
     app.controller("calendarCtrl", ["$scope", "dataSvc", "$compile", "$location", "$anchorScroll", "uiCalendarConfig", calendarCtrl]);
