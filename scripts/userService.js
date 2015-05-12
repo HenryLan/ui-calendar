@@ -1,11 +1,11 @@
 ﻿(function (module) {
 
-    var userSvc = function ($location, dataSvc, storageSvc) {
+    var userSvc = function ($location, storageSvc) {
         var userKey = "DEMO_USER_KEY_0955";
 
-        var login = function (username, password) {
-            return dataSvc.login(username,password);
-        };
+        //var login = function (username, password) {
+        //    return dataSvc.login(username,password);
+        //};
 
         var logout = function () {
             initUser(true);
@@ -55,7 +55,7 @@
         var user = initUser();
 
         return {
-            login: login,
+            //login: login,
             logout: logout,
             setUser: setUser,
             initUser: initUser,
@@ -63,6 +63,6 @@
         };
     };
 
-    module.factory("userSvc", ["$location", "dataSvc","storageSvc", userSvc]);
+    module.factory("userSvc", ["$location", "storageSvc", userSvc]);
 
 }(angular.module("demoApp")));

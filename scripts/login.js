@@ -3,7 +3,7 @@
     var app = angular.module('demoApp');
 
 
-    var loginCtrl = function ($scope, $rootScope, $location, userSvc) {
+    var loginCtrl = function ($scope, $rootScope, $location, userSvc, dataSvc) {
 
         $scope.message = "Please use MPF/MPF as username/password";
         $scope.username = "";
@@ -11,7 +11,7 @@
         $scope.error = "";        
         
          $scope.login = function () {
-             userSvc.login($scope.username, $scope.password)
+             dataSvc.login($scope.username, $scope.password)
              .success(function (data, status, headers, config) {
                  userSvc.setUser(data);
 
@@ -26,7 +26,7 @@
 
     };
 
-    app.controller("loginCtrl", ["$scope", "$rootScope", "$location", "userSvc", loginCtrl]);
+    app.controller("loginCtrl", ["$scope", "$rootScope", "$location", "userSvc","dataSvc", loginCtrl]);
 
 
 }());

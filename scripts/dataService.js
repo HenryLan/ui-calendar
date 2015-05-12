@@ -1,5 +1,5 @@
 ﻿(function (module) {
-    var dataSvc = function ($http) {
+    var dataSvc = function ($http, userSvc) {
 
 
         var login = function (username, password) {
@@ -15,6 +15,8 @@
             var uri = "http://10.10.10.8:7502/meetings-portal/api/v1/meetings";
 
             return $http.get(encodeURI(uri));
+
+            //return $http.get("https://api.github.com/users/henrylan");
         };
 
         var getAgenda = function (meetingId) {
