@@ -32,8 +32,19 @@
     <script src="scripts/storageService.js"></script>
     <script src="scripts/httpPipeline.js"></script>
 
+    <script language="javascript">
+        document.onmousedown = disablerightlink;
+
+        function disablerightlink(event) {
+            
+            if (event.button == 2) {
+                return false;
+            }
+        }
+    </script>
+
 </head>
-<body ng-app="demoApp">
+<body ng-app="demoApp" oncontextmenu="return false">
     <div class="container" ng-controller="layoutCtrl">
 
 
