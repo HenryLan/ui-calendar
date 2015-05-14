@@ -1,63 +1,95 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="calendarDemoApp" id="top">
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>AngularUI Calendar for AngularJS</title>
+    <title>Board Of Directors</title>
     <link rel="icon" href="favicon.ico" />
-    <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.css" />
-    <link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
     <link rel="stylesheet" href="calendarDemo.css" />
+    <link rel="stylesheet" href="content/site.css" />
 
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-css/js/bootstrap.js"></script>
 
-    <script src="../bower_components/angular/angular.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
-    <script src="../bower_components/moment/moment.js"></script>
-    <script src="../bower_components/fullcalendar/dist/fullcalendar.js"></script>
-    <script src="../bower_components/fullcalendar/dist/gcal.js"></script>
-    <script src="../src/calendar.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="scripts/calendar.js"></script>
+
+
+    <script src="scripts/angular-ui-router.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/login.js"></script>
+    <!--<script src="calendarDemo.js"></script>-->
+    <script src="scripts/meeting.js"></script>
+    <script src="scripts/dataService.js"></script>
+    <script src="scripts/layout.js"></script>
+	<script src="scripts/forgetpassword.js"></script>
+    <script src="scripts/userService.js"></script>
+    <script src="scripts/storageService.js"></script>
+    <script src="scripts/httpPipeline.js"></script>
 
 </head>
-<body data-spy="scroll">
+<body ng-app="demoApp">
+    <div class="container" ng-controller="layoutCtrl">
 
 
-
-    <div class="container" style="width:90%; min-width:300px;">
-        <section id="directives-calendar" ng-controller="CalendarCtrl">
-            <div class="page-header">
-                <h1>UI-Calendar</h1>
+        <div class="row">
+            <div class="col-xs-12">
+                <img src="images/mpfBanner.png" class="img-responsive" style="width:100%; display:block;">
             </div>
-            <div class="well">
-                <div class="row-fluid">
+        </div>
 
-
-                    <div class="span12">
-                        <tabset>
-                            <tab select="renderCalender('myCalendar1');">
-                              <tab-heading>
-                               <i class="glyphicon glyphicon-bell"></i> Calendar One
-                              </tab-heading>
-                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-                                <h4>{{alertMessage}}</h4>
-                              </div>
-                              <div class="btn-toolbar">
-                                <p class="pull-right lead">Calendar One View Options</p>
-                                <div class="btn-group">
-                                    <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
-                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
-                                    <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
-                                </div>
-                              </div>
-                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
-                           </tab>
-
-                        </tabset>
-                    </div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header" >
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" ng-show="user.loggedIn">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">Welcome <small>{{user.userName}}</small></span>
                 </div>
-            </div>
 
-        </section>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+
+                    <ul class="nav navbar-nav navbar-right" ng-show="user.loggedIn">
+						<li><a href="#/home">Home</a></li>
+                        <li><a href="#" ng-click="logout();">Logout</a></li>
+                        <li><a href="#/changepassword">Change Password</a></li>
+                    </ul>
+					
+                    <ul class="nav navbar-nav navbar-right" ng-show="!user.loggedIn">
+						<li><a href="#/home">Home</a></li>
+                        <li><a href="#/forgetpassword">Forget password</a></li>
+                        <li><a href="#/changepassword">Change Password</a></li>
+                    </ul>					
+					
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <!--<div style="width:90%; min-width:300px;">
+
+            <a ui-sref="home">home</a>
+            <a ui-sref="login">login</a>
+            <a ui-sref="about">about</a>
+        </div>-->
+
+        <div style="width:100%; min-width:300px;">
+            <div ui-view></div>
+        </div>
+
+        <div>
+            &nbsp;
+        </div>
     </div>
 
-
-    </body>
+</body>
 </html>

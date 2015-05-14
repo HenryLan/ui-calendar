@@ -32,7 +32,7 @@
         </div>
 
     </section>
-
+	
     <section id="agenda" class="well agendaSection" ng-show="agenda.length>0">
         <h3>Agenda</h3>
 
@@ -40,8 +40,13 @@
         <ul ng-repeat="a in agenda">
             <li>
                 
-                <span ng-show="a.doc != null"><a href="{{a.doc.source}}" target="_blank"><span class="glyphicon glyphicon-file"></span>{{a.title}}</a></span>
-                <span ng-show="a.doc == null">{{a.title}}</span>
+                <span ng-show="a.url != null">
+				<a href="" ng-click="getDoc(a.url)" target="_blank"><span class="glyphicon glyphicon-file"></span>{{a.title}}</a>
+				<form action="{{getFormAction(a.url)}}">
+					<button type="submit">Download {{a.title}}</button>
+				</form>
+				</span>
+                <span ng-show="a.url == null">{{a.title}}</span>
             
             </li>
         </ul>
