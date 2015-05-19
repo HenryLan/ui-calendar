@@ -42,7 +42,8 @@
                 
                 <span ng-show="a.url != null">
 				<a href="" ng-click="getDoc(a.url)" target="_blank"><span class="glyphicon glyphicon-file"></span>{{a.title}}</a>
-				<form action="{{getFormAction(a.url)}}">
+				<!-- <a href="" ng-click="getDoc1(a.url)"><span class="glyphicon glyphicon-file"></span>{{a.title}}</a> -->
+				<form action="{{getFormAction(a.url)}}" target="_blank">
 					<button type="submit">Download {{a.title}}</button>
 				</form>
 				</span>
